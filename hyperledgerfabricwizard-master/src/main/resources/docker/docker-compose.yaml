@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mysql:
+    restart: unless-stopped
+    image: mysql
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password' ]
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    user: "$UID:$GID"
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql

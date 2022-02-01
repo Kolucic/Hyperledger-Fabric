@@ -1,0 +1,21 @@
+<app-nav [rootComponent]="this" [title]="this.title">
+  <app-mystepper [@.disabled]="true" linear #stepper>
+    <cdk-step label="Network" [stepControl]="networkComponent.form">
+      <app-network #networkComponent [network]="this.network"></app-network>
+    </cdk-step>
+    <cdk-step label="Organizations" [stepControl]="organizationsComponent.form">
+      <app-organizations [rootStepper]="stepper" #organizationsComponent [orgs]="this.network.orgs"></app-organizations>
+    </cdk-step>
+    <cdk-step label="Consortiums" [stepControl]="consortiumsComponent.form">
+      <app-consortiums #consortiumsComponent [network]="this.network"></app-consortiums>
+    </cdk-step>
+    <cdk-step label="Channels" [stepControl]="channelsComponent.form">
+      <app-channels #channelsComponent [network]="this.network"></app-channels>
+    </cdk-step>
+    <cdk-step label="Done">
+      <app-summary [network]="this.network"></app-summary>
+    </cdk-step>
+  </app-mystepper>
+  <input accept="application/json" (change)="fileToImportSelected($event.target.files[0])" #import type="file"
+         style="display: none"/>
+</app-nav>

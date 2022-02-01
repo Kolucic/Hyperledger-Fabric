@@ -1,0 +1,126 @@
+@import '~@angular/material/theming';
+
+@mixin mystep($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  $cardBackground: map-get($background, card);
+  $primary: map-get($theme, primary);
+
+  .mystep-stepper {
+
+    .mystep-header {
+      cursor: pointer;
+      height: 72px;
+      position: relative;
+      align-items: center;
+      padding: 0 24px;
+
+      &:hover {
+        background-color: mat-color($background, hover);
+      }
+
+      @media (hover: none) {
+        &:hover {
+          background: none;
+        }
+      }
+
+      .mystep-ripple {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+      }
+
+      .mystep-icon {
+        position: relative;
+        border-radius: 50%;
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
+        color: mat-color($primary, default-contrast);
+        @if (map_get($theme, is-dark)) {
+          background: $cardBackground;
+        } @else {
+          background: mat-color($foreground, secondary-text);
+        }
+
+        .mystep-icon-number {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .mystep-icon-selected {
+        background: mat-color($primary);
+      }
+
+      .mystep-label {
+        color: mat-color($foreground, secondary-text);
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 50px;
+        vertical-align: middle;
+      }
+
+      .mystep-label-selected {
+        color: mat-color($foreground, text);
+        font-weight: 500;
+      }
+    }
+
+    .mystep-separator {
+      border-top: 1px solid mat-color($foreground, divider);;
+      height: 0;
+      align-self: center;
+    }
+  }
+
+  .mystep-stepper-mini {
+    height: 72px;
+    @if (map_get($theme, is-dark)) {
+      background: $cardBackground;
+    } @else {
+
+    }
+
+    .mystep-label {
+      align-self: center;
+      text-align: center;
+
+      .mystep-label-text {
+        color: mat-color($foreground, text);
+        font-size: 1.17em;
+      }
+
+      .mystep-label-counter {
+        color: mat-color($foreground, secondary-text);
+      }
+
+      .mystep-label-circle {
+        margin-right: 8px;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        @if (map_get($theme, is-dark)) {
+          background: mat-color($background, background)
+        } @else {
+          background: mat-color($foreground, secondary-text);
+        }
+      }
+
+      .mystep-label-circle-selected {
+        background: mat-color($primary);
+      }
+    }
+
+    .mystep-icon {
+      color: mat-color($foreground, text);
+    }
+  }
+}

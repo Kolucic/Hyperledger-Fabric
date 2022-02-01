@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <span>{{this.title}}</span>
+  <div fxFlex></div>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="rootComponent.import()" mat-menu-item>
+      <span>Import config</span>
+    </button>
+    <button (click)="rootComponent.export()" mat-menu-item>
+      <span>Export config</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+<ng-content></ng-content>

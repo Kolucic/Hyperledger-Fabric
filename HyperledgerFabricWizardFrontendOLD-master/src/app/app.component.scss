@@ -1,0 +1,47 @@
+@mixin app($theme) {
+  $background: map-get($theme, background);
+  @if (map_get($theme, is-dark)) {
+    mat-horizontal-stepper {
+      background: mat-color($background, background) !important;
+    }
+    mat-vertical-stepper {
+      background: mat-color($background, background) !important;
+    }
+  } @else {
+
+  }
+  mat-toolbar {
+    @if (map_get($theme, is-dark)) {
+      background: transparent !important;
+    } @else {
+
+    }
+  }
+  mat-card {
+    border-style: solid;
+    box-shadow: none !important;
+    @if (map_get($theme, is-dark)) {
+      border-color: #5f6368;
+      border-width: 0;
+    } @else {
+      border-color: #dadce0;
+      border-width: 0.5px;
+    }
+  }
+  $card: map-get($background, card);
+  .mat-step-icon.mat-step-icon-state-number:not(.mat-step-icon-selected) {
+    @if (map_get($theme, is-dark)) {
+      background: $card;
+    } @else {
+    }
+  }
+}
+
+strong {
+  font-weight: 500 !important;
+}
+
+.checkbox {
+  min-height: 60px;
+  align-self: center;
+}

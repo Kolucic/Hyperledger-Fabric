@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Are you sure you want to import?</h1>
+<div mat-dialog-content>
+  <br>
+  <h3>It will erase existing data.</h3>
+  <br>
+</div>
+<div mat-dialog-actions fxLayout="row">
+  <button mat-button fxFlex (click)="cancel()">No</button>
+  <button cdkFocusInitial (click)="yes()" mat-flat-button color="primary" fxFlex>Yes</button>
+</div>

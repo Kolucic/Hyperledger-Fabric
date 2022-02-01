@@ -1,0 +1,56 @@
+@import '~@angular/material/theming';
+@import "app/app.component";
+@import "app/mystepper/mystepper.component";
+
+
+@include mat-core();
+
+@mixin custom-theme($theme) {
+  @include app($theme);
+  @include mystep($theme);
+}
+
+
+// Light theme
+$light-primary: mat-palette($mat-indigo);
+$light-accent: mat-palette($mat-indigo);
+$light-theme: mat-light-theme($light-primary, $light-accent);
+
+.light-theme {
+  @include angular-material-theme($light-theme);
+  @include custom-theme($light-theme);
+}
+
+
+// Dark theme
+$dark-primary: mat-palette($mat-blue-gray);
+$dark-accent: mat-palette($mat-blue-gray, A200, A100, A400);
+//$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent); //$dark-warn);
+
+.dark-theme {
+  @include angular-material-theme($dark-theme);
+  @include custom-theme($dark-theme);
+}
+
+body.light-theme {
+  background: white !important;
+}
+
+body.dark-theme {
+  $background: map-get($dark-theme, background);
+  background: mat-color($background, background) !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-form-field {
+  width: 100%;
+}

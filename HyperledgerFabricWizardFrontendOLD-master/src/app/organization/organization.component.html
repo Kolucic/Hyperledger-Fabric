@@ -1,0 +1,116 @@
+<div fxLayout="row">
+  <mat-card fxFlexOrder="2" fxFlex.lt-sm="100" fxFlex.gt-md="60" fxFlex="80">
+    <form [formGroup]="form">
+      <h2>Certificate Authority</h2>
+      <div formGroupName="ca" fxLayout="row wrap" fxLayoutGap="2% grid">
+        <mat-form-field fxFlex>
+          <mat-label>Name</mat-label>
+          <input required placeholder="ca-{{org.name}}" matInput formControlName="caName">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>State</mat-label>
+          <mat-select formControlName="caState">
+            <ng-template ngFor let-state [ngForOf]="states">
+              <mat-option [value]="state.code">{{state.name}}</mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>Username</mat-label>
+          <input required placeholder="admin" matInput formControlName="caUsername">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>Password</mat-label>
+          <input required placeholder="adminpw" matInput [type]="hide ? 'password' : 'text'"
+                 formControlName="caPassword">
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>URL</mat-label>
+          <input required placeholder="localhost" matInput formControlName="caURL">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>Port</mat-label>
+          <input required placeholder="7050" matInput type="number" min="0" formControlName="caPort">
+        </mat-form-field>
+      </div>
+      <div fxLayout="row">
+        <h2 fxFlex>Members</h2>
+        <div fxFlex fxFlexAlign="center" *ngIf="this.form.errors?.error">
+          <mat-error style="text-align: end">*Existing member!</mat-error>
+          <br>
+        </div>
+      </div>
+      <ng-template ngFor let-entity [ngForOf]="entities" let-i="index">
+        <div formGroupName="{{this.memberControl(i)}}">
+          <div fxLayout="row wrap" fxLayoutGap="2% grid">
+            <mat-form-field fxFlex>
+              <mat-label><strong>Member {{i + 1}}</strong> name</mat-label>
+              <input required placeholder="peer{{i+1}}" matInput formControlName="{{nameControl()}}">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-label><strong>Member {{i + 1}}</strong> state</mat-label>
+              <mat-select formControlName="{{stateControl()}}">
+                <ng-template ngFor let-state [ngForOf]="states">
+                  <mat-option [value]="state.code">{{state.name}}</mat-option>
+                </ng-template>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-label><strong>Member {{i + 1}}</strong> typology</mat-label>
+              <mat-select required formControlName="{{this.typeControl()}}">
+                <ng-template ngFor let-typology [ngForOf]="memberTypologies">
+                  <mat-option value="{{typology}}">{{typology}}</mat-option>
+                </ng-template>
+              </mat-select>
+            </mat-form-field>
+            <ng-template [ngIf]="isHost(entity)">
+              <mat-form-field fxFlex>
+                <mat-label><strong>Member {{i + 1}}</strong> url</mat-label>
+                <input required placeholder="localhost" matInput formControlName="{{this.urlControl()}}">
+              </mat-form-field>
+              <mat-form-field fxFlex>
+                <mat-label><strong>Member {{i + 1}}</strong> port</mat-label>
+                <input required placeholder="7050" matInput type="number"
+                       formControlName="{{this.portControl()}}">
+              </mat-form-field>
+              <mat-checkbox fxFlex
+                            class="checkbox"
+                            *ngIf="isPeer(entity)"
+                            formControlName="{{this.anchorControl()}}"
+                            [checked]="isAnchor(entity)"
+                            color="primary">
+                Anchor peer
+              </mat-checkbox>
+            </ng-template>
+          </div>
+          <mat-divider></mat-divider>
+          <br>
+        </div>
+      </ng-template>
+      <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="2%">
+        <button type="button" color="accent" (click)="addMember()" mat-button>New member
+          <mat-icon>add</mat-icon>
+        </button>
+        <button (click)="removeMember()" *ngIf="this.entities.length > 1" type="button" color="warn" mat-button>
+          Remove member
+          <mat-icon>delete</mat-icon>
+        </button>
+        <div fxFlex></div>
+        <button *ngIf="!this.last else elseBlock" color="accent" mat-flat-button type="submit"
+                matStepperNext>Next
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <ng-template #elseBlock>
+          <button color="accent" mat-flat-button type="submit" (click)="this.rootStepper.next()">Next
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </ng-template>
+      </div>
+    </form>
+  </mat-card>
+  <div fxFlex fxFlexOrder="1"></div>
+  <div fxFlex fxFlexOrder="3"></div>
+</div>

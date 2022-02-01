@@ -1,0 +1,54 @@
+<div fxLayout="row" style="margin-top: 50px">
+  <mat-card fxFlexOrder="2" fxFlex.lt-sm="100" fxFlex.gt-md="60" fxFlex="80">
+    <form [formGroup]="form">
+      <h2>Network</h2>
+      <mat-form-field>
+        <mat-label>Network name</mat-label>
+        <input required matInput placeholder="sample-network" formControlName="network_name">
+        <mat-error *ngIf="networkName.invalid">{{invalidNetworkName()}}</mat-error>
+      </mat-form-field>
+      <br>
+      <br>
+      <div fxLayout="row">
+        <h2 fxFlex>Organizations</h2>
+        <div fxFlex fxFlexAlign="center" *ngIf="this.form.errors?.error">
+          <mat-error style="text-align: end">*Name and domain already exist</mat-error>
+          <br>
+        </div>
+      </div>
+      <ng-template ngFor [ngForOf]="orgs" let-i="index">
+        <div formGroupName="{{this.orgControl(i)}}" fxLayout="row wrap" fxLayoutGap="2% grid">
+          <mat-form-field fxFlex>
+            <mat-label><strong>Organization {{i + 1}}</strong> name</mat-label>
+            <input matInput placeholder="org{{i+1}}" formControlName="{{this.nameControl()}}" required>
+            <mat-error *ngIf="this.form.get(nameControl(i)).errors?.pattern">Name cannot contain spaces</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex>
+            <mat-label><strong>Organization {{i + 1}}</strong> domain</mat-label>
+            <input matInput placeholder="example.com" formControlName="{{this.domainControl()}}" required>
+            <mat-error *ngIf="this.form.get(domainControl(i)).errors?.pattern">Domain cannot contain spaces
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <mat-divider style="margin-top: 4px"></mat-divider>
+        <br>
+      </ng-template>
+      <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="2%">
+        <button type="button" (click)="addOrg()" color="accent" mat-button>New
+          organization
+          <mat-icon>add</mat-icon>
+        </button>
+        <button (click)="removeOrg()" *ngIf="orgs.length > 2" type="button" color="warn" mat-button>
+          Remove organization
+          <mat-icon>delete</mat-icon>
+        </button>
+        <div fxFlex></div>
+        <button color="accent" mat-flat-button matStepperNext>Next
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+  <div fxFlex fxFlexOrder="1"></div>
+  <div fxFlex fxFlexOrder="3"></div>
+</div>

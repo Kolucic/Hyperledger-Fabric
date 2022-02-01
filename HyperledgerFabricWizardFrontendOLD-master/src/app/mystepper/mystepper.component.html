@@ -1,0 +1,35 @@
+<section>
+  <div fxHide.lt-md fxLayout="row" class="mystep-stepper">
+    <ng-template ngFor let-step let-i="index" [ngForOf]="steps">
+      <div class="mystep-header" fxLayout="row" (click)="onClick(i)">
+        <div matRipple class="mystep-ripple"></div>
+        <div [class.mystep-icon-selected]="selectedIndex==i" class="mystep-icon">
+          <div class="mystep-icon-number">{{i + 1}}</div>
+        </div>
+        <div [class.mystep-label-selected]="selectedIndex==i" class="mystep-label">
+          <div>{{step.label}}</div>
+        </div>
+      </div>
+      <div *ngIf="i != steps.length-1" fxFlex class="mystep-separator"></div>
+    </ng-template>
+  </div>
+  <div fxHide.md fxHide.gt-md fxLayout="row" class="mystep-stepper-mini">
+    <button [style.visibility]="this.selectedIndex-1 < 0 ? 'hidden' : 'visible'" fxFlex mat-button cdkStepperPrevious>
+      <mat-icon class="mystep-icon">chevron_left</mat-icon>
+    </button>
+    <div class="mystep-label" fxFlex="80">
+      <div fxLayout="row" style="justify-content: center">
+        <div class="mystep-label-circle" *ngFor="let step of steps; let i = index"
+             [class.mystep-label-circle-selected]="i == this.selectedIndex">
+        </div>
+      </div>
+    </div>
+    <button [style.visibility]="this.selectedIndex+1 > steps.length-1 ? 'hidden' : 'visible'" fxFlex mat-button
+            cdkStepperNext>
+      <mat-icon class="mystep-icon">chevron_right</mat-icon>
+    </button>
+  </div>
+  <div style="padding:0 24px 24px 24px" [style.display]="selected ? 'block' : 'none'">
+    <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+<div fxLayout="row" style="margin-top: 50px">
+  <mat-card fxFlexOrder="2" fxFlex.lt-sm="100" fxFlex.gt-md="60" fxFlex="80">
+    <h2>Configuration completed</h2>
+    <br>
+    <br>
+    <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="2%">
+      <button [disabled]="disabled" mat-flat-button color="accent" fxFlex (click)="download()">{{this.network.name}}.zip
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+  <div fxFlex fxFlexOrder="1"></div>
+  <div fxFlex fxFlexOrder="3"></div>
+</div>
