@@ -35,7 +35,7 @@ class OrdererServiceBuilder(
         this.addEnvironment("ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE", "/var/hyperledger/orderer/tls/server.crt")
         this.addEnvironment("ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY", "/var/hyperledger/orderer/tls/server.key")
         this.addEnvironment("ORDERER_GENERAL_CLUSTER_ROOTCAS", "[/var/hyperledger/orderer/tls/ca.crt]")
-        this.addVolume("../../.. ${genesisBlockPath}", "/var/hyperledger/orderer/orderer.genesis.block")
+        this.addVolume("../../. ${genesisBlockPath}", "/var/hyperledger/orderer/orderer.genesis.block")
         this.addVolume(this.mspPath, "/var/hyperledger/orderer/msp")
         this.addVolume(this.tlsPath, "/var/hyperledger/orderer/tls")
         this.addVolume(".", "/var/hyperledger/production/orderer")
